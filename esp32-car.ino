@@ -60,16 +60,15 @@ Serial.println("start test");
 dvForward(255);
 delay(5000);
 dvStop();
-delay(1000);
+delay(100);
 dvLeft(255);
 delay(5000);
 dvStop();
-delay(1000);
+delay(100);
 dvRight(255);
 delay(5000);
 dvStop();
-delay(1000);
-Serial.println("end test");
+delay(100);
 
 
   
@@ -230,46 +229,64 @@ void loop() {
 void dvStop()
 {
   Serial.println("Stop");
+  ledcWrite(pwmChannel, 0);
   digitalWrite(motor1Pin1, LOW);
   digitalWrite(motor1Pin2, LOW);
   digitalWrite(motor2Pin1, LOW);
-  digitalWrite(motor2Pin2, LOW);
-  ledcWrite(pwmChannel, 0);
+  digitalWrite(motor2Pin2, LOW);  
 }
 
 void dvForward(int pwm)
 {
   Serial.println("Forward");
+  ledcWrite(pwmChannel, pwm);
   digitalWrite(motor1Pin1, LOW);
   digitalWrite(motor1Pin2, HIGH);
   digitalWrite(motor2Pin1, LOW);
   digitalWrite(motor2Pin2, HIGH);
-  ledcWrite(pwmChannel, pwm);
 }
 void dvLeft(int pwm)
 {
-  Serial.println("Left");  //  "Влево"
+  Serial.println("Left-1");  //  "Влево1"
+  ledcWrite(pwmChannel, pwm);
   digitalWrite(motor1Pin1, LOW);
   digitalWrite(motor1Pin2, LOW);
   digitalWrite(motor2Pin1, LOW);
   digitalWrite(motor2Pin2, HIGH);
-  ledcWrite(pwmChannel, pwm);
 }
 void dvRight(int pwm)
 {
-  Serial.println("Right");  //  "Вправо"
+  Serial.println("Right-1");  //  "Вправо1"
+  ledcWrite(pwmChannel, pwm);
   digitalWrite(motor1Pin1, LOW);
   digitalWrite(motor1Pin2, HIGH);
   digitalWrite(motor2Pin1, LOW);
   digitalWrite(motor2Pin2, LOW);
+}
+void dvLeft2(int pwm)
+{
+  Serial.println("Left-2");  //  "Влево2"
   ledcWrite(pwmChannel, pwm);
+  digitalWrite(motor1Pin1, HIGH);
+  digitalWrite(motor1Pin2, LOW);
+  digitalWrite(motor2Pin1, LOW);
+  digitalWrite(motor2Pin2, HIGH);
+}
+void dvRight2(int pwm)
+{
+  Serial.println("Right-2");  //  "Вправо2"
+  ledcWrite(pwmChannel, pwm);
+  digitalWrite(motor1Pin1, LOW);
+  digitalWrite(motor1Pin2, HIGH);
+  digitalWrite(motor2Pin1, HIGH);
+  digitalWrite(motor2Pin2, LOW);
 }
 void dvReverse(int pwm)
 {
   Serial.println("Reverse");  //  "Назад"
+  ledcWrite(pwmChannel, pwm);
   digitalWrite(motor1Pin1, HIGH);
   digitalWrite(motor1Pin2, LOW);
   digitalWrite(motor2Pin1, HIGH);
   digitalWrite(motor2Pin2, LOW);
-  ledcWrite(pwmChannel, pwm);
 }

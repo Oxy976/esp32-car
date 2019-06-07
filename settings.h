@@ -14,8 +14,13 @@ int enable1Pin = 14;
 int motor2Pin1 = 17;
 int motor2Pin2 = 25;
 int enable2Pin = 26;
+// мотор 2:
+//int motor2Pin1 = 12;
+//int motor2Pin2 = 13;
+//int enable2Pin = 5;
  
 // переменные для свойств широтно-импульсной модуляции (ШИМ):
+//частота – 30000 Гц, канал для генерирования сигнала – 0, разрешение – 8 бит
 const int freq = 30000;
 const int pwmChannel = 0;
 const int resolution = 8;
