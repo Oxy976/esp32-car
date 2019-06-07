@@ -58,15 +58,15 @@ void setup() {
 
 Serial.println("start test");
 dvForward(255);
-delay(5000);
+delay(2000);
 dvStop();
 delay(100);
 dvLeft(255);
-delay(5000);
+delay(2000);
 dvStop();
 delay(100);
 dvRight(255);
-delay(5000);
+delay(2000);
 dvStop();
 delay(100);
 
@@ -76,28 +76,17 @@ delay(100);
 
 void loop() {
   //  Serial.print("'");
-  WiFiClient client = server.available();  // Запускаем прослушку
-  // входящих клиентов.
-  if (client) {                            // Если подключился
-    // новый клиент,
-    Serial.println("New Client.");         // печатаем в монитор порта
-    // сообщение об этом.
-    String currentLine = "";               // Создаем строку
-    // для хранения данных,
-    // пришедших от клиента.
+  WiFiClient client = server.available();  // Запускаем прослушку входящих клиентов.
+  if (client) {                            // Если подключился новый клиент,
+    Serial.println("New Client.");         // печатаем в монитор порта сообщение об этом.
+    String currentLine = "";               // Создаем строку для хранения данных, пришедших от клиента.
     delay (5);
-    while (client.connected()) {           // Запускаем цикл while(),
-      // который будет работать,
-      // пока клиент подключен.
-      if (client.available()) {            // Если у клиента
-        // есть байты, которые
-        // можно прочесть,
+    while (client.connected()) {           // Запускаем цикл while(), который будет работать, пока клиент подключен.
+      if (client.available()) {            // Если у клиента есть байты, которые можно прочесть,
         char c = client.read();            // считываем байт
-        Serial.write(c);                   // и печатаем его
-        // в мониторе порта.
+        Serial.write(c);                   // и печатаем его  в мониторе порта.
         header += c;
-        if (c == '\n') {                   // Если полученный байт –
-          // это символ новой строки.
+        if (c == '\n') {                   // Если полученный байт –  это символ новой строки.
           // Если мы получили два символа новой строки подряд,
           // то это значит, что текущая строка пуста.
           // Это конец HTTP-запроса клиента, поэтому отправляем ответ:
@@ -109,8 +98,7 @@ void loop() {
             // После этого пишем пустую строчку:
             client.println("HTTP/1.1 200 OK");
             client.println("Content-type:text/html");
-            client.println("Connection: close");
-            //  "Соединение: отключено"
+            client.println("Connection: close");     //  "Соединение: отключено"
             client.println();
 
             // Этот код отвечает за управление контактами моторов
@@ -151,9 +139,7 @@ void loop() {
             client.println("<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
             client.println("<link rel=\"icon\" href=\"data:,\">");
             // При помощи CSS задаем стиль кнопок.
-            // Попробуйте поэкспериментировать
-            // с атрибутами «background-color» и «font-size»,
-            // чтобы стилизовать кнопки согласно своим предпочтениям:
+            // Попробуйте поэкспериментировать с атрибутами «background-color» и «font-size», чтобы стилизовать кнопки согласно своим предпочтениям:
             client.println("<style>html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}");
             client.println(".button { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; background-color: #4CAF50;");
             client.println("border: none; color: white; padding: 12px 28px; text-decoration: none; font-size: 26px; margin: 1px; cursor: pointer;}");
@@ -202,18 +188,13 @@ void loop() {
                 Serial.println(valueString);
               }
             }
-            // HTTP-ответ заканчивается еще одной пустой строкой:
-            client.println();
-            // Выходим из цикла while():
-            break;
-          } else {  // Если получили символ новой строки,
-            // то очищаем переменную «currentLine»:
+            client.println(); // HTTP-ответ заканчивается еще одной пустой строкой:
+            break; // Выходим из цикла while():
+          } else {  // Если получили символ новой строки, то очищаем переменную «currentLine»:
             currentLine = "";
           }
-        } else if (c != '\r') {  // Если получили что-либо,
-          // кроме символа возврата каретки...
-          currentLine += c;      // ...добавляем эти данные
-          // в конец переменной «currentLine»
+        } else if (c != '\r') {  // Если получили что-либо, кроме символа возврата каретки...
+          currentLine += c;      // ...добавляем эти данные  в конец переменной «currentLine»
         }
       }
     }
